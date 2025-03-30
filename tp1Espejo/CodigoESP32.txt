@@ -1,0 +1,34 @@
+#include "Arduino.h"
+//#include "esp32/clk.h"  // Para cambiar la frecuencia de la CPU
+
+void medirTiempo() {
+    uint32_t start = micros();
+    
+    // Simulación de un proceso que toma tiempo
+    volatile int sum = 0;
+    for (int i = 0; i < 100000; i++) {
+        sum += i;
+    }
+    
+    uint32_t end = micros();
+    Serial.print("Tiempo de ejecución: ");
+    Serial.print(end - start);
+    Serial.println(" us");
+}
+
+void setup() {
+    Serial.begin(115200);
+    delay(2000);
+    
+    Serial.println("Ejecutando con frecuencia original");
+    medirTiempo();
+    
+    // Duplicar la frecuencia de la CPU
+    setCpuFrequencyMhz(240); // Máxima frecuencia para la ESP32
+    Serial.println("\nEjecutando con frecuencia duplicada");
+    medirTiempo();
+}
+
+void loop() {
+    // No hace nada en el loop
+}
