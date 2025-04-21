@@ -87,6 +87,7 @@ Recuperar los datos del índice GINI desde la API del Banco Mundial y guardarlos
 
 ## Usar GDB para depurar
 - gdb ./process_gini
+![WhatsApp Image 2025-04-21 at 11 26 27](https://github.com/user-attachments/assets/a8075d3b-2277-404b-ab52-a17561f39115)
 
 ## Comandos útiles dentro de GDB:
 - (gdb) break main           # Coloca un punto de ruptura en main
