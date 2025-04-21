@@ -54,3 +54,25 @@ Recuperar los datos del índice GINI desde la API del Banco Mundial y guardarlos
 - Convierte el número flotante a entero utilizando instrucciones de la **unidad de punto flotante (FPU)**.
 - Suma el valor `+1`.
 - Devuelve el resultado al programa en C.
+
+## Compilación del código en ensamblador
+- nasm -f elf32 convert.asm -o convert.o
+
+## Compilación del código en C + ensamblador
+- gcc -m32 -g -o process_gini process_gini.c convert.o -ljson-c
+
+## Ejecutar el programa
+- ./process_gini
+
+## Usar GDB para depurar
+- gdb ./process_gini
+
+## Comandos útiles dentro de GDB:
+- (gdb) break main           # Coloca un punto de ruptura en main
+- (gdb) run                  # Ejecuta el programa
+- (gdb) step                 # Ejecuta línea por línea (entra a funciones)
+- (gdb) next                 # Ejecuta siguiente línea (sin entrar en funciones)
+- (gdb) info registers       # Muestra el contenido de los registros
+- (gdb) x/4xb &variable      # Inspecciona la memoria en una dirección
+- (gdb) quit                 # Salir del depurador
+
