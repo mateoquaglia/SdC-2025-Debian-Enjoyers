@@ -13,6 +13,7 @@
 
 **JORGE, Javier Alejandro**   
 **SOLINAS, Miguel Ángel** 
+**LAMBERTI, Germán** 
 Facultad de Ciencias Exactas, Físicas y Naturales – UNC
 
 ---
