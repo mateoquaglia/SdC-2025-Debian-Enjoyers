@@ -10,7 +10,7 @@ Los datos de consulta realizados deben ser entregados a un programa en **C** que
 
 ---
 
-## 🧭 Resumen del flujo general
+## Resumen del flujo general
 
 ### Python:
 - Obtiene los datos del índice GINI desde la API y los guarda en un archivo JSON.
@@ -25,7 +25,7 @@ Los datos de consulta realizados deben ser entregados a un programa en **C** que
 
 ---
 
-## 📄 Código en Python (`TP2.py`)
+## Código en Python (`TP2.py`)
 
 **Propósito:**  
 Recuperar los datos del índice GINI desde la API del Banco Mundial y guardarlos en un archivo JSON (`gini.json`).
@@ -37,7 +37,7 @@ Recuperar los datos del índice GINI desde la API del Banco Mundial y guardarlos
 
 ---
 
-## 💻 Código en C (`process_gini.c`)
+## Código en C (`process_gini.c`)
 
 **Funcionamiento:**
 - Abre y lee el archivo `gini.json`.
@@ -47,7 +47,7 @@ Recuperar los datos del índice GINI desde la API del Banco Mundial y guardarlos
 
 ---
 
-## ⚙️ Código en Assembler (`convert.asm`)
+## Código en Assembler (`convert.asm`)
 
 **Funcionamiento:**
 - Recibe un número flotante como parámetro desde el programa en C.
