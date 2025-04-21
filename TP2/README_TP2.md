@@ -1,5 +1,26 @@
+# Trabajo Práctico Nº2 – Sistemas de Bajo Nivel
 
-# TP2 - Explicación
+
+## Integrantes del Grupo
+
+- **BERRA, Facundo Horacio**  
+- **ESPEJO, Alejandro Andres** 
+- **QUAGLIA, Mateo** 
+
+---
+
+##  Profesor
+
+**JORGE, Javier Alejandro**    
+Facultad de Ciencias Exactas, Físicas y Naturales – UNC
+
+---
+
+## 🧪 Grupo
+
+**Debian Enjoyers**   
+
+# Explicación
 
 ## Enunciado
 
