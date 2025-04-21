@@ -16,7 +16,7 @@ Facultad de Ciencias Exactas, Físicas y Naturales – UNC
 
 ---
 
-## 🧪 Grupo
+##  Grupo
 
 **Debian Enjoyers**   
 
