@@ -9,9 +9,10 @@
 
 ---
 
-##  Profesor
+##  Profesores
 
-**JORGE, Javier Alejandro**    
+**JORGE, Javier Alejandro**   
+**SOLINAS, Miguel Ángel** 
 Facultad de Ciencias Exactas, Físicas y Naturales – UNC
 
 ---
@@ -55,7 +56,7 @@ Recuperar los datos del índice GINI desde la API del Banco Mundial y guardarlos
 - Consulta la API para una lista de países usando sus códigos.
 - Extrae los valores del país y los valores del índice GINI de la respuesta de la API.
 - Guarda los datos en un archivo JSON en formato estructurado, donde cada entrada contiene el nombre del país y su índice GINI.
-**Código**
+
 
   ![WhatsApp Image 2025-04-21 at 11 28 46](https://github.com/user-attachments/assets/b1b3dc9f-faf6-4968-a366-e2aa605dc032)
 
@@ -68,7 +69,7 @@ Recuperar los datos del índice GINI desde la API del Banco Mundial y guardarlos
 - Extrae el nombre del país y el índice GINI de cada entrada.
 - Convoca el código en ensamblador para convertir el índice GINI (`float`) a un entero y sumar `+1`.
 - Imprime el nombre del país y el índice GINI procesado en el terminal.
-**Código**
+
 
   ![WhatsApp Image 2025-04-21 at 11 28 27](https://github.com/user-attachments/assets/983be0e7-588f-4786-b3b0-2b16f15f7605)
 
@@ -81,7 +82,7 @@ Recuperar los datos del índice GINI desde la API del Banco Mundial y guardarlos
 - Convierte el número flotante a entero utilizando instrucciones de la **unidad de punto flotante (FPU)**.
 - Suma el valor `+1`.
 - Devuelve el resultado al programa en C.
-**Código**
+
 
   ![WhatsApp Image 2025-04-21 at 11 27 58 (1)](https://github.com/user-attachments/assets/f4598e02-09e7-436f-9e8e-5b3f182f4dbd)
 
