@@ -1,4 +1,4 @@
-# Trabajo Práctico Nº2 – Sistemas de Bajo Nivel
+# Trabajo Práctico Nº2 – Stack Frame
 
 
 ## Integrantes del Grupo
