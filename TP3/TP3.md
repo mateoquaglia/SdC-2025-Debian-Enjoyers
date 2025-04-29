@@ -123,6 +123,7 @@ La dirección (load address) organiza la memoria de forma precisa. Permite:
 - Compatibilidad con hardware o bootloaders.
 - Seguridad y separación de segmentos.
 - Relocalización o carga dinámica.
+- 
 ![image](https://github.com/user-attachments/assets/f86bc8a9-c2fe-47a3-accf-45f708b591ab)
 ![image](https://github.com/user-attachments/assets/9a68dd35-21da-4baf-8a39-ddb8d06142eb)
 
@@ -139,12 +140,18 @@ Se verifica en `hd`:
 
 - Datos desde 0x0000 (no vacíos).
 - 0x55AA en offset 0x01FE (requerido por BIOS).
+- 
+![image](https://github.com/user-attachments/assets/3dbc2fae-4f54-4c33-b1da-d18d40be332a)
+
 
 ---
 
 ## Grabar la imagen en un pendrive y probar
 
-**[Comentario: Adjuntar foto de la prueba física]**
+![image](https://github.com/user-attachments/assets/e16aabfa-f7fd-4808-a12d-05c32cb79599)
+![image](https://github.com/user-attachments/assets/7f57a680-43f9-442a-a72e-7988899c0b7a)
+
+
 
 ---
 
@@ -157,7 +164,9 @@ Se verifica en `hd`:
 
 ## Crear un código assembler para pasar a modo protegido (sin macros)
 
-**[Comentario: Adjuntar código de ejemplo]**
+![image](https://github.com/user-attachments/assets/f3adf079-17a6-4abd-8af9-12ed8b376216)
+![image](https://github.com/user-attachments/assets/f9291915-a911-4192-b2c3-3e3d45b109b6)
+
 
 ---
 
@@ -205,8 +214,11 @@ Permite protección de memoria, aislamiento de procesos, multitarea segura.
 - Conectar GDB a QEMU.
 - Colocar breakpoints.
 - Avanzar paso a paso escribiendo "hello world" letra por letra.
+- 
+![image](https://github.com/user-attachments/assets/58dc88af-f995-4f8a-b3fc-f83bec09e4f3)
+![image](https://github.com/user-attachments/assets/ca53a4f5-f787-412a-a4e2-efe87ac4a306)
 
-**[Comentario: Adjuntar captura de la sesión de GDB]**
+
 
 ---
 
