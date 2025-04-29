@@ -123,6 +123,8 @@ La dirección (load address) organiza la memoria de forma precisa. Permite:
 - Compatibilidad con hardware o bootloaders.
 - Seguridad y separación de segmentos.
 - Relocalización o carga dinámica.
+![image](https://github.com/user-attachments/assets/f86bc8a9-c2fe-47a3-accf-45f708b591ab)
+![image](https://github.com/user-attachments/assets/9a68dd35-21da-4baf-8a39-ddb8d06142eb)
 
 ---
 
