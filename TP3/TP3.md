@@ -225,18 +225,7 @@ Permite protección de memoria, aislamiento de procesos, multitarea segura.
 
 ---
 
-## Uso de GDB en hello world
-
-- Iniciar imagen en QEMU.
-- Conectar GDB a QEMU.
-- Colocar breakpoints.
-- Avanzar paso a paso escribiendo "hello world" letra por letra.
-- 
-![image](https://github.com/user-attachments/assets/58dc88af-f995-4f8a-b3fc-f83bec09e4f3)
-![image](https://github.com/user-attachments/assets/ca53a4f5-f787-412a-a4e2-efe87ac4a306)
 
 
-
----
 
 
