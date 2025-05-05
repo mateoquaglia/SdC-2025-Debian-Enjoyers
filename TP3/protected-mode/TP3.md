@@ -197,12 +197,12 @@ Permite protección de memoria, aislamiento de procesos, multitarea segura.
 
 ---
 
-## Uso de GDB en hello world
+## Uso de GDB en Assembler
 
-- Iniciar imagen en QEMU.
+- Iniciar imagen en QEMU con el comando "qemu-system-i386 -drive format=raw,file=protected_mode.img -boot a -s -S -monitor stdio".
 - Conectar GDB a QEMU.
 - Colocar breakpoints.
-- Avanzar paso a paso escribiendo "hello world" letra por letra.
+- Avanzar paso a paso.
 
 **[Comentario: Adjuntar captura de la sesión de GDB]**
 
