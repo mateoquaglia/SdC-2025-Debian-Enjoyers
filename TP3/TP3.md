@@ -167,14 +167,19 @@ Se verifica en `hd`:
 - Ejecutamos qemu con "qemu-system-i386 -drive format=raw,file=protected_mode.img -boot a -s -S -monitor stdio"
 - Iniciamos GDB con "gdb" en otra terminal
 - Comenzamos la lectura de archivos
+  
 **Código de assembler**
+  
 ![image](https://github.com/user-attachments/assets/f3adf079-17a6-4abd-8af9-12ed8b376216)
+
 **Implementacion de los codigos previos**
+
 ![WhatsApp Image 2025-05-05 at 11 19 23](https://github.com/user-attachments/assets/718575aa-1579-4064-80e8-abbaae2151b1)
 
 **Lectura de registros con GDB**
 - Se coloca un breakpoint en la seccion donde se ingresa a modo protegido.
 - Se leen los registros con "info registers"
+  
 ![WhatsApp Image 2025-05-05 at 11 12 08](https://github.com/user-attachments/assets/dd87ae1b-9076-4ab1-8084-959a29b253f5)
 
 
