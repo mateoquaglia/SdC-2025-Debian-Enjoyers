@@ -1,0 +1,218 @@
+2c2,21
+< ntfs3                 344064  1
+---
+> xt_conntrack           12288  1
+> xt_MASQUERADE          16384  1
+> bridge                421888  0
+> stp                    12288  1 bridge
+> llc                    16384  2 bridge,stp
+> xt_set                 20480  0
+> ip_set                 61440  1 xt_set
+> nft_chain_nat          12288  5
+> nf_nat                 61440  2 nft_chain_nat,xt_MASQUERADE
+> nf_conntrack          200704  3 xt_conntrack,nf_nat,xt_MASQUERADE
+> nf_defrag_ipv6         24576  1 nf_conntrack
+> nf_defrag_ipv4         12288  1 nf_conntrack
+> xt_addrtype            12288  4
+> nft_compat             20480  6
+> nf_tables             385024  75 nft_compat,nft_chain_nat
+> libcrc32c              12288  3 nf_conntrack,nf_nat,nf_tables
+> xfrm_user              65536  1
+> xfrm_algo              16384  1 xfrm_user
+> ccm                    20480  9
+> rfcomm                102400  4
+4a24,28
+> overlay               212992  0
+> cmac                   12288  3
+> algif_hash             16384  1
+> algif_skcipher         16384  1
+> af_alg                 32768  6 algif_hash,algif_skcipher
+6,12c30,35
+< snd_soc_avs           200704  0
+< snd_soc_hda_codec      24576  1 snd_soc_avs
+< snd_hda_ext_core       32768  2 snd_soc_avs,snd_soc_hda_codec
+< snd_soc_core          438272  2 snd_soc_avs,snd_soc_hda_codec
+< snd_compress           28672  2 snd_soc_avs,snd_soc_core
+< ac97_bus               12288  1 snd_soc_core
+< snd_pcm_dmaengine      16384  1 snd_soc_core
+---
+> bnep                   32768  2
+> binfmt_misc            24576  1
+> nls_iso8859_1          12288  1
+> amd_atl                69632  1
+> intel_rapl_msr         20480  0
+> intel_rapl_common      53248  1 intel_rapl_msr
+14d36
+< snd_hda_codec_hdmi     98304  1
+16a39
+> snd_hda_codec_hdmi     98304  1
+18,20c41,42
+< snd_usb_audio         536576  3
+< nouveau              3108864  66
+< snd_intel_dspcfg       45056  2 snd_soc_avs,snd_hda_intel
+---
+> rtw89_8852ce           12288  0
+> snd_intel_dspcfg       45056  1 snd_hda_intel
+22c44,49
+< snd_hda_codec         204800  6 snd_hda_codec_generic,snd_soc_avs,snd_hda_codec_hdmi,snd_soc_hda_codec,snd_hda_intel,snd_hda_codec_realtek
+---
+> rtw89_8852c           983040  1 rtw89_8852ce
+> snd_usb_audio         536576  1
+> snd_hda_codec         204800  4 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec_realtek
+> rtw89_pci              98304  1 rtw89_8852ce
+> edac_mce_amd           28672  0
+> snd_hda_core          143360  5 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec,snd_hda_codec_realtek
+24,30d50
+< snd_ump                45056  1 snd_usb_audio
+< mc                     81920  1 snd_usb_audio
+< joydev                 32768  0
+< input_leds             12288  0
+< snd_hda_core          143360  8 snd_hda_codec_generic,snd_soc_avs,snd_hda_codec_hdmi,snd_soc_hda_codec,snd_hda_intel,snd_hda_ext_core,snd_hda_codec,snd_hda_codec_realtek
+< mxm_wmi                12288  1 nouveau
+< drm_gpuvm              45056  1 nouveau
+32,37c52,54
+< snd_pcm               196608  11 snd_soc_avs,snd_hda_codec_hdmi,snd_hda_intel,snd_usb_audio,snd_hda_codec,snd_compress,snd_soc_core,snd_hda_core,snd_pcm_dmaengine
+< drm_exec               12288  2 drm_gpuvm,nouveau
+< intel_rapl_msr         20480  0
+< intel_rapl_common      53248  1 intel_rapl_msr
+< gpu_sched              61440  1 nouveau
+< drm_ttm_helper         16384  1 nouveau
+---
+> kvm_amd               245760  0
+> rtw89_core            962560  2 rtw89_pci,rtw89_8852c
+> snd_ump                45056  1 snd_usb_audio
+39d55
+< ttm                   110592  2 drm_ttm_helper,nouveau
+41,42c57
+< intel_uncore_frequency    12288  0
+< intel_uncore_frequency_common    16384  1 intel_uncore_frequency
+---
+> kvm                  1421312  1 kvm_amd
+44c59,61
+< drm_display_helper    278528  1 nouveau
+---
+> mac80211             1777664  2 rtw89_core,rtw89_pci
+> mc                     81920  1 snd_usb_audio
+> btusb                  69632  0
+46,57c63,64
+< cec                    94208  1 drm_display_helper
+< snd_seq_device         16384  4 snd_seq,snd_seq_midi,snd_ump,snd_rawmidi
+< snd_timer              49152  3 snd_seq,snd_hrtimer,snd_pcm
+< rc_core                73728  1 cec
+< intel_tcc_cooling      12288  0
+< x86_pkg_temp_thermal    20480  0
+< i2c_algo_bit           16384  1 nouveau
+< intel_powerclamp       24576  0
+< snd                   143360  26 snd_hda_codec_generic,snd_seq,snd_seq_device,snd_hda_codec_hdmi,snd_hwdep,snd_hda_intel,snd_usb_audio,snd_usbmidi_lib,snd_hda_codec,snd_hda_codec_realtek,snd_timer,snd_compress,snd_soc_core,snd_ump,snd_pcm,snd_rawmidi
+< ee1004                 16384  0
+< soundcore              16384  1 snd
+< coretemp               24576  0
+---
+> snd_pcm               196608  5 snd_hda_codec_hdmi,snd_hda_intel,snd_usb_audio,snd_hda_codec,snd_hda_core
+> btrtl                  36864  1 btusb
+59,60d65
+< mei_pxp                16384  0
+< mei_hdcp               28672  0
+62d66
+< i2c_i801               36864  0
+63a68
+> btintel                69632  1 btusb
+64a70
+> snd_seq_device         16384  4 snd_seq,snd_seq_midi,snd_ump,snd_rawmidi
+66d71
+< mei_me                 53248  2
+68,71c73,82
+< mei                   172032  5 mei_hdcp,mei_pxp,mei_me
+< aesni_intel           122880  0
+< i2c_mux                16384  1 i2c_i801
+< i2c_smbus              16384  1 i2c_i801
+---
+> joydev                 32768  0
+> input_leds             12288  0
+> btbcm                  24576  1 btusb
+> snd_timer              49152  3 snd_seq,snd_hrtimer,snd_pcm
+> cfg80211             1384448  3 rtw89_core,mac80211,rtw89_8852c
+> aesni_intel           122880  10
+> btmtk                  36864  1 btusb
+> snd                   143360  22 snd_hda_codec_generic,snd_seq,snd_seq_device,snd_hda_codec_hdmi,snd_hwdep,snd_hda_intel,snd_usb_audio,snd_usbmidi_lib,snd_hda_codec,snd_hda_codec_realtek,snd_timer,snd_ump,snd_pcm,snd_rawmidi
+> bluetooth            1028096  34 btrtl,btmtk,btintel,btbcm,bnep,btusb,rfcomm
+> libarc4                12288  1 mac80211
+73c84,86
+< cryptd                 24576  2 crypto_simd,ghash_clmulni_intel
+---
+> cryptd                 24576  3 crypto_simd,ghash_clmulni_intel
+> soundcore              16384  1 snd
+> i2c_piix4              32768  0
+75,76d87
+< intel_cstate           24576  0
+< gigabyte_wmi           12288  0
+77a89,93
+> gigabyte_wmi           12288  0
+> ccp                   155648  1 kvm_amd
+> i2c_smbus              16384  1 i2c_piix4
+> k10temp                16384  0
+> gpio_amdpt             16384  0
+79,87d94
+< intel_pmc_core        118784  0
+< intel_vsec             20480  1 intel_pmc_core
+< pmt_telemetry          16384  1 intel_pmc_core
+< pmt_class              16384  1 pmt_telemetry
+< acpi_pad              184320  0
+< acpi_tad               20480  0
+< binfmt_misc            24576  1
+< kvm_intel             487424  0
+< kvm                  1421312  1 kvm_intel
+90c97
+< parport_pc             53248  1
+---
+> parport_pc             53248  0
+95c102
+< nfnetlink              20480  1
+---
+> nfnetlink              20480  5 nft_compat,nf_tables,ip_set
+98c105
+< x_tables               65536  1 ip_tables
+---
+> x_tables               65536  6 xt_conntrack,nft_compat,xt_addrtype,xt_set,ip_tables,xt_MASQUERADE
+99a107
+> amdgpu              19439616  21
+100a109,115
+> amddrm_ttm_helper      12288  1 amdgpu
+> amdttm                110592  2 amdgpu,amddrm_ttm_helper
+> amddrm_buddy           24576  1 amdgpu
+> amdxcp                 12288  1 amdgpu
+> drm_exec               12288  1 amdgpu
+> drm_suballoc_helper    20480  1 amdgpu
+> amd_sched              61440  1 amdgpu
+102c117
+< uas                    28672  0
+---
+> amdkcl                 28672  3 amd_sched,amdttm,amdgpu
+104,106c119,123
+< usb_storage            86016  2 uas
+< nvme                   61440  0
+< nvme_core             221184  1 nvme
+---
+> drm_display_helper    278528  1 amdgpu
+> cec                    94208  1 drm_display_helper
+> rc_core                73728  1 cec
+> video                  77824  1 amdgpu
+> i2c_algo_bit           16384  1 amdgpu
+108c125
+< nvme_auth              28672  1 nvme_core
+---
+> drm_ttm_helper         16384  1 amdgpu
+110c127,128
+< ahci                   49152  1
+---
+> ahci                   49152  4
+> ttm                   110592  1 drm_ttm_helper
+112d129
+< libahci                53248  1 ahci
+113a131
+> libahci                53248  1 ahci
+115,116c133
+< video                  77824  1 nouveau
+< wmi                    28672  5 video,gigabyte_wmi,wmi_bmof,mxm_wmi,nouveau
+---
+> wmi                    28672  3 video,gigabyte_wmi,wmi_bmof
