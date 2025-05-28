@@ -107,4 +107,10 @@ int main() {
 En este caso, el programa captura la señal SIGSEGV y ejecuta el manejador en lugar de terminar abruptamente.
 
 Conclusión
-El kernel detecta el acceso no válido y envía la señal SIGSEGV. Si el programa no maneja la señal, el kernel termina el proceso. 
+El kernel detecta el acceso no válido y envía la señal SIGSEGV. Si el programa no maneja la señal, el kernel termina el proceso.
+
+### ¿Qué pasa si tu compañero tiene Secure Boot habilitado y quiere cargar un módulo que vos compilaste?
+No podrá cargarlo. El kernel lo rechazará automáticamente porque el módulo no está firmado con una clave válida reconocida por el sistema, y esto sucede porque Secure Boot, al estar habilitado, no permite la carga de módulos que no estén firmados digitalmente con una clave que el sistema reconozca como válida.
+El módulo, aunque haya sido correctamente compilado, no tiene una firma válida para el sistema.
+
+
