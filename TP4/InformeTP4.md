@@ -34,6 +34,8 @@ En el caso del integrante "Facu", hay muchos módulos que se encuentran sin uso 
 - `input_leds`
 - `usbhid`
 - `joydev`
+
+  
 ![image](https://github.com/user-attachments/assets/267e2888-e920-4b7d-8ffc-0baf2bc138a8)
 
 Estos módulos tienen sus bytes particulares, pero ninguno está en uso en este momento.
