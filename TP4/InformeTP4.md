@@ -120,7 +120,8 @@ realizamos los pasos de dicho documento el cual adjuntamos en la imagen siguient
 ![WhatsApp Image 2025-05-28 at 17 49 50](https://github.com/user-attachments/assets/a44a1d0c-638f-40d2-bed0-5fb8ad2ece81)
 ![WhatsApp Image 2025-05-28 at 17 49 58](https://github.com/user-attachments/assets/3179a7c1-8f36-4d93-8e92-ae20b1ed5432)
 ![WhatsApp Image 2025-05-28 at 17 50 05](https://github.com/user-attachments/assets/1816aae2-fa8c-4bd3-bd5e-e82353e8e564)
-![WhatsApp Image 2025-05-28 at 17 50 09](https://github.com/user-attachments/assets/f64aa286-e04b-4dbe-8897-4312306560b3)
+![image](https://github.com/user-attachments/assets/b0bbc61f-fc56-4131-8963-67867868b3e5)
+
 
 ### ¿Qué pasa si tu compañero tiene Secure Boot habilitado y quiere cargar un módulo que vos compilaste?
 No podrá cargarlo. El kernel lo rechazará automáticamente porque el módulo no está firmado con una clave válida reconocida por el sistema, y esto sucede porque Secure Boot, al estar habilitado, no permite la carga de módulos que no estén firmados digitalmente con una clave que el sistema reconozca como válida.
