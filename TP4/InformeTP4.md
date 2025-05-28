@@ -17,9 +17,15 @@ Si no se aplican estas prácticas de seguridad y los atacantes logran acceso al 
 ---
 
 # Desafío 2
+![image](https://github.com/user-attachments/assets/907737e3-4134-4100-9928-367209a531d4)
 
 ## ¿Qué diferencias observan entre los dos `modinfo`?
 La principal diferencia es que uno de los módulos es personalizado, mientras que el otro es genérico. Ambos tienen la misma licencia ("GPL"), pero difieren en otros aspectos.
+![image](https://github.com/user-attachments/assets/0c2c2c63-c5bc-4fd7-8597-fb884a0dd20a)
+
+## Diferencias entre módulos de los integrantes
+Commiteadas en este repositorio se pueden encontrar los archivos txt generados por cada integrante del grupo y cada archivo que muertra la diferencia entre los módulos que cada uno.
+
 
 ## Utilizamos el comando `lsmod`
 En el caso del integrante "Facu", hay muchos módulos que se encuentran sin uso pero disponibles, como:
@@ -28,12 +34,15 @@ En el caso del integrante "Facu", hay muchos módulos que se encuentran sin uso 
 - `input_leds`
 - `usbhid`
 - `joydev`
+![image](https://github.com/user-attachments/assets/267e2888-e920-4b7d-8ffc-0baf2bc138a8)
 
 Estos módulos tienen sus bytes particulares, pero ninguno está en uso en este momento.
 
 Cuando el driver de un dispositivo no está disponible, el dispositivo no funcionará correctamente o fallará. Por ejemplo, si falta el módulo de una tarjeta de red, esta no podrá conectarse.
 
 ## Realizando `hwinfo` y `cat hwinfo_report.txt`
+![image](https://github.com/user-attachments/assets/e02d2f95-557e-4797-8324-6ce51ece3a50)
+
 Obtenemos un listado como el siguiente:  
 [https://gist.github.com/FacundoBerra/c00edae1e3764349fc96facff3ca5d85](https://gist.github.com/FacundoBerra/c00edae1e3764349fc96facff3ca5d85)
 
