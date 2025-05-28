@@ -119,21 +119,37 @@ Al reiniciar, se accede al MOK Manager, una interfaz azul para gestionar claves 
 ![WhatsApp Image 2025-05-28 at 17 49 39](https://github.com/user-attachments/assets/67a32a3d-4611-43f5-9c55-df69dfb12232)
 
 ![WhatsApp Image 2025-05-28 at 17 49 45](https://github.com/user-attachments/assets/904eb1ae-0e20-4e51-a028-bbe3026b47fa)
+
 El sistema muestra:
+
 Número de serie
+
 Emisor y sujeto
+
 Fechas de validez
+
 Huella digital (fingerprint)
+
 Sirve para confirmar que es la clave correcta.
+
 ![WhatsApp Image 2025-05-28 at 17 49 50](https://github.com/user-attachments/assets/a44a1d0c-638f-40d2-bed0-5fb8ad2ece81)
+
 Confirmar el enrolamiento
+
 ![WhatsApp Image 2025-05-28 at 17 49 58](https://github.com/user-attachments/assets/3179a7c1-8f36-4d93-8e92-ae20b1ed5432)
+
 Se introduce la contraseña establecida al ejecutar mokutil para autorizar la operación
+
 ![WhatsApp Image 2025-05-28 at 17 50 05](https://github.com/user-attachments/assets/1816aae2-fa8c-4bd3-bd5e-e82353e8e564)
+
 Seleccionar la clave desde el disco
+
 Se muestra una lista de discos y particiones (puede ser desde USB o disco interno)
+
 Se navega hasta donde esté guardado el archivo .der y se selecciona.
+
 ![image](https://github.com/user-attachments/assets/b0bbc61f-fc56-4131-8963-67867868b3e5)
+
 La clave se guarda en la base de datos MOK del sistema.
 
 ### ¿Qué pasa si tu compañero tiene Secure Boot habilitado y quiere cargar un módulo que vos compilaste?
