@@ -1,0 +1,220 @@
+2,5c2,3
+< snd_seq_dummy          12288  0
+< snd_hrtimer            12288  1
+< xt_conntrack           12288  2
+< xt_MASQUERADE          16384  2
+---
+> xt_conntrack           12288  1
+> xt_MASQUERADE          16384  1
+13c11
+< nf_conntrack          196608  3 xt_conntrack,nf_nat,xt_MASQUERADE
+---
+> nf_conntrack          200704  3 xt_conntrack,nf_nat,xt_MASQUERADE
+17,19c15,18
+< nft_compat             20480  8
+< nf_tables             376832  112 nft_compat,nft_chain_nat
+< xfrm_user              61440  1
+---
+> nft_compat             20480  6
+> nf_tables             385024  75 nft_compat,nft_chain_nat
+> libcrc32c              12288  3 nf_conntrack,nf_nat,nf_tables
+> xfrm_user              65536  1
+20a20,23
+> ccm                    20480  9
+> rfcomm                102400  4
+> snd_seq_dummy          12288  0
+> snd_hrtimer            12288  1
+21a25,28
+> cmac                   12288  3
+> algif_hash             16384  1
+> algif_skcipher         16384  1
+> af_alg                 32768  6 algif_hash,algif_skcipher
+23,32c30,33
+< nvidia_uvm           4956160  0
+< snd_soc_avs           188416  0
+< snd_soc_hda_codec      24576  1 snd_soc_avs
+< snd_hda_ext_core       32768  2 snd_soc_avs,snd_soc_hda_codec
+< snd_soc_core          438272  2 snd_soc_avs,snd_soc_hda_codec
+< snd_compress           28672  2 snd_soc_avs,snd_soc_core
+< ac97_bus               12288  1 snd_soc_core
+< snd_pcm_dmaengine      16384  1 snd_soc_core
+< snd_hda_codec_realtek   200704  1
+< nvidia_drm            122880  7
+---
+> bnep                   32768  2
+> binfmt_misc            24576  1
+> nls_iso8859_1          12288  1
+> amd_atl                69632  1
+33a35,36
+> intel_rapl_common      53248  1 intel_rapl_msr
+> snd_hda_codec_realtek   208896  1
+35,37c38,39
+< snd_hda_codec_hdmi     94208  1
+< nvidia_modeset       1355776  10 nvidia_drm
+< intel_rapl_common      40960  1 intel_rapl_msr
+---
+> snd_hda_scodec_component    20480  1 snd_hda_codec_realtek
+> snd_hda_codec_hdmi     98304  1
+39c41,42
+< snd_intel_dspcfg       36864  2 snd_soc_avs,snd_hda_intel
+---
+> rtw89_8852ce           12288  0
+> snd_intel_dspcfg       45056  1 snd_hda_intel
+41,50c44,54
+< snd_hda_codec         204800  6 snd_hda_codec_generic,snd_soc_avs,snd_hda_codec_hdmi,snd_soc_hda_codec,snd_hda_intel,snd_hda_codec_realtek
+< intel_tcc_cooling      12288  0
+< x86_pkg_temp_thermal    20480  0
+< intel_powerclamp       24576  0
+< snd_hda_core          139264  8 snd_hda_codec_generic,snd_soc_avs,snd_hda_codec_hdmi,snd_soc_hda_codec,snd_hda_intel,snd_hda_ext_core,snd_hda_codec,snd_hda_codec_realtek
+< coretemp               24576  0
+< snd_hwdep              20480  1 snd_hda_codec
+< nvidia              54308864  180 nvidia_uvm,nvidia_modeset
+< snd_pcm               192512  8 snd_soc_avs,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec,snd_compress,snd_soc_core,snd_hda_core,snd_pcm_dmaengine
+< kvm_intel             487424  0
+---
+> rtw89_8852c           983040  1 rtw89_8852ce
+> snd_usb_audio         536576  1
+> snd_hda_codec         204800  4 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec_realtek
+> rtw89_pci              98304  1 rtw89_8852ce
+> edac_mce_amd           28672  0
+> snd_hda_core          143360  5 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec,snd_hda_codec_realtek
+> snd_usbmidi_lib        53248  1 snd_usb_audio
+> snd_hwdep              20480  2 snd_usb_audio,snd_hda_codec
+> kvm_amd               245760  0
+> rtw89_core            962560  2 rtw89_pci,rtw89_8852c
+> snd_ump                45056  1 snd_usb_audio
+53,78c57,72
+< snd_rawmidi            57344  1 snd_seq_midi
+< snd_seq               118784  9 snd_seq_midi,snd_seq_midi_event,snd_seq_dummy
+< kvm                  1404928  1 kvm_intel
+< ucsi_ccg               24576  0
+< typec_ucsi             61440  1 ucsi_ccg
+< snd_seq_device         16384  3 snd_seq,snd_seq_midi,snd_rawmidi
+< typec                 106496  1 typec_ucsi
+< snd_timer              49152  3 snd_seq,snd_hrtimer,snd_pcm
+< irqbypass              12288  1 kvm
+< ee1004                 16384  0
+< mei_pxp                16384  0
+< mei_hdcp               28672  0
+< snd                   143360  19 snd_hda_codec_generic,snd_seq,snd_seq_device,snd_hda_codec_hdmi,snd_hwdep,snd_hda_intel,snd_hda_codec,snd_hda_codec_realtek,snd_timer,snd_compress,snd_soc_core,snd_pcm,snd_rawmidi
+< rapl                   20480  0
+< soundcore              16384  1 snd
+< mei_me                 53248  2
+< i2c_i801               36864  0
+< i2c_nvidia_gpu         12288  0
+< intel_cstate           24576  0
+< i2c_smbus              16384  1 i2c_i801
+< intel_wmi_thunderbolt    16384  0
+< i2c_ccgx_ucsi          12288  1 i2c_nvidia_gpu
+< mei                   172032  5 mei_hdcp,mei_pxp,mei_me
+< intel_pmc_core        118784  0
+< intel_vsec             20480  1 intel_pmc_core
+< pmt_telemetry          16384  1 intel_pmc_core
+---
+> kvm                  1421312  1 kvm_amd
+> snd_rawmidi            57344  3 snd_seq_midi,snd_usbmidi_lib,snd_ump
+> mac80211             1777664  2 rtw89_core,rtw89_pci
+> mc                     81920  1 snd_usb_audio
+> btusb                  69632  0
+> snd_seq               122880  9 snd_seq_midi,snd_seq_midi_event,snd_seq_dummy
+> snd_pcm               196608  5 snd_hda_codec_hdmi,snd_hda_intel,snd_usb_audio,snd_hda_codec,snd_hda_core
+> btrtl                  36864  1 btusb
+> crct10dif_pclmul       12288  1
+> polyval_clmulni        12288  0
+> polyval_generic        12288  1 polyval_clmulni
+> btintel                69632  1 btusb
+> ghash_clmulni_intel    16384  0
+> snd_seq_device         16384  4 snd_seq,snd_seq_midi,snd_ump,snd_rawmidi
+> sha256_ssse3           32768  0
+> sha1_ssse3             32768  0
+81,82c75,93
+< pmt_class              12288  1 pmt_telemetry
+< acpi_pad              184320  0
+---
+> btbcm                  24576  1 btusb
+> snd_timer              49152  3 snd_seq,snd_hrtimer,snd_pcm
+> cfg80211             1384448  3 rtw89_core,mac80211,rtw89_8852c
+> aesni_intel           122880  10
+> btmtk                  36864  1 btusb
+> snd                   143360  22 snd_hda_codec_generic,snd_seq,snd_seq_device,snd_hda_codec_hdmi,snd_hwdep,snd_hda_intel,snd_usb_audio,snd_usbmidi_lib,snd_hda_codec,snd_hda_codec_realtek,snd_timer,snd_ump,snd_pcm,snd_rawmidi
+> bluetooth            1028096  34 btrtl,btmtk,btintel,btbcm,bnep,btusb,rfcomm
+> libarc4                12288  1 mac80211
+> crypto_simd            16384  1 aesni_intel
+> cryptd                 24576  3 crypto_simd,ghash_clmulni_intel
+> soundcore              16384  1 snd
+> i2c_piix4              32768  0
+> rapl                   20480  0
+> wmi_bmof               12288  0
+> gigabyte_wmi           12288  0
+> ccp                   155648  1 kvm_amd
+> i2c_smbus              16384  1 i2c_piix4
+> k10temp                16384  0
+> gpio_amdpt             16384  0
+84,85c95
+< binfmt_misc            24576  1
+< sch_fq_codel           24576  5
+---
+> sch_fq_codel           24576  2
+97,113c107
+< btrfs                2027520  0
+< blake2b_generic        24576  0
+< raid10                 73728  0
+< raid456               196608  0
+< async_raid6_recov      20480  1 raid456
+< async_memcpy           16384  2 raid456,async_raid6_recov
+< async_pq               20480  2 raid456,async_raid6_recov
+< async_xor              16384  3 async_pq,raid456,async_raid6_recov
+< async_tx               16384  5 async_pq,async_memcpy,async_xor,raid456,async_raid6_recov
+< xor                    20480  2 async_xor,btrfs
+< raid6_pq              126976  4 async_pq,btrfs,raid456,async_raid6_recov
+< libcrc32c              12288  5 nf_conntrack,nf_nat,btrfs,nf_tables,raid456
+< raid1                  57344  0
+< raid0                  24576  0
+< dm_mirror              24576  0
+< dm_region_hash         24576  1 dm_mirror
+< dm_log                 20480  2 dm_region_hash,dm_mirror
+---
+> amdgpu              19439616  21
+114a109,115
+> amddrm_ttm_helper      12288  1 amdgpu
+> amdttm                110592  2 amdgpu,amddrm_ttm_helper
+> amddrm_buddy           24576  1 amdgpu
+> amdxcp                 12288  1 amdgpu
+> drm_exec               12288  1 amdgpu
+> drm_suballoc_helper    20480  1 amdgpu
+> amd_sched              61440  1 amdgpu
+116,117c117,123
+< hid                   180224  2 usbhid,hid_generic
+< crct10dif_pclmul       12288  1
+---
+> amdkcl                 28672  3 amd_sched,amdttm,amdgpu
+> hid                   262144  2 usbhid,hid_generic
+> drm_display_helper    278528  1 amdgpu
+> cec                    94208  1 drm_display_helper
+> rc_core                73728  1 cec
+> video                  77824  1 amdgpu
+> i2c_algo_bit           16384  1 amdgpu
+119,125c125,129
+< polyval_clmulni        12288  0
+< polyval_generic        12288  1 polyval_clmulni
+< ghash_clmulni_intel    16384  0
+< sha256_ssse3           32768  0
+< sha1_ssse3             32768  0
+< ahci                   49152  1
+< alx                    61440  0
+---
+> drm_ttm_helper         16384  1 amdgpu
+> r8169                 118784  0
+> ahci                   49152  4
+> ttm                   110592  1 drm_ttm_helper
+> realtek                45056  1
+128d131
+< mdio                   12288  1 alx
+130,134c133
+< video                  77824  1 nvidia_modeset
+< wmi                    28672  2 video,intel_wmi_thunderbolt
+< aesni_intel           356352  0
+< crypto_simd            16384  1 aesni_intel
+< cryptd                 24576  2 crypto_simd,ghash_clmulni_intel
+---
+> wmi                    28672  3 video,gigabyte_wmi,wmi_bmof
