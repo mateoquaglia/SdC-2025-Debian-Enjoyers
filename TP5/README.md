@@ -338,7 +338,7 @@ y procedemos a ver la ejecución:
 
 - Se logró implementar el código funcional en la raspberry pi, no es posible observar gráficamente las señales en el plot de python puesto que al ser una versión “lite” de Raspios la utilizada, no tiene interfaz gráfica, y el código a pesar de ir variando entre las señales perfectamente, la única forma de observar el plot era por fuera de la raspberry.
 - El sistema al momento de probarlo en el entorno de emulación, nos encontramos ciertas complicaciones, puesto que la versión que habíamos descargado de la raspberry era muy moderna y QEMU no la soportaba, entonces debimos descargar la versión del año 2021 que adjuntamos arriba.
-
+  [Link de Versión 2021](https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf/images/raspios_oldstable_lite_armhf-2021-12-02/)
 - Por medio de matplotlib entonces logramos que la aplicación gráfica sea capaz de representar y cambiar entre las dos señales en tiempo real, cumpliendo así con la consigna.
 
 
