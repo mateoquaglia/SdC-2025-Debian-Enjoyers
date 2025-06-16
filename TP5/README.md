@@ -3,7 +3,7 @@
 ## UNIVERSIDAD NACIONAL DE CÓRDOBA 
 ### FACULTAD DE CIENCIAS EXACTAS, FÍSICAS Y NATURALES
 
-# TRABAJO PRÁCTICO Nº 3
+# TRABAJO PRÁCTICO Nº 5
 ## “Device drivers”
 
 ### Grupo
@@ -21,93 +21,326 @@
 
 ---
 
-# Informe Técnico – TP: Driver de Caracteres y Visualización de Señales
+# Informe – TP: Driver de Caracteres y Visualización de Señales
 
-## 1. Introducción
+##  Objetivo
 
-Este trabajo práctico tiene como objetivo implementar un **Controlador de Dispositivo de Caracteres (CDD)** en un sistema Linux embebido (Raspberry Pi) para sensar dos señales externas, permitiendo su lectura desde espacio de usuario mediante una aplicación que las grafique en tiempo real.
+Diseñar e implementar un CDD (Controlador de Dispositivo de Caracteres) que permita sensar dos señales externas con un periodo de 1 segundo. Una aplicación de usuario deberá poder:
+- Seleccionar cuál de las dos señales desea leer.
 
-Se utilizan técnicas de desarrollo a nivel de kernel, emulación de hardware y desarrollo de aplicaciones gráficas en Python, logrando una interacción completa entre capas de software y hardware simulado.
 
----
+- Leer y graficar dicha señal en función del tiempo.
 
-## 2. Objetivos
 
-- Desarrollar un **driver de caracteres** en espacio kernel que permita la lectura de dos señales.
-- Permitir la **selección dinámica** de la señal a observar desde el espacio de usuario.
-- Implementar una aplicación en Python para la **visualización gráfica** de la señal seleccionada.
-- **Emular** el entorno de desarrollo usando QEMU y una imagen de Raspberry Pi.
-- Documentar y demostrar el funcionamiento del sistema completo.
+- Resetear el gráfico al cambiar de señal.
+
 
 ---
 
-## 3. Desarrollo
+## Estructura del Sistema
+- CDD en espacio kernel: dispositivo de caracteres que expone dos señales.
 
-### 3.1 Driver de Caracteres
 
-Se implementó un módulo de kernel en C que:
+- Aplicación en espacio de usuario (Python): interfaz para seleccionar señal y graficar.
 
-- Registra un dispositivo de caracteres (`/dev/mi_cdd`).
-- Simula dos señales periódicas con actualización cada 1 segundo.
-- Permite al usuario seleccionar qué señal observar mediante `write()` o `ioctl`.
-- Devuelve el valor de la señal seleccionada al leer desde el dispositivo.
 
-> 📸 **[Agregar aquí capturas del código del driver]**
+- Emulación del entorno: Raspberry Pi emulada con QEMU.
 
-### 3.2 Generación de Señales
 
-Las señales fueron generadas por software, simulando entradas digitales periódicas (por ejemplo, funciones senoidales o cuadradas). Se utilizó un timer interno del módulo para actualizar los valores sin intervención del usuario.
-
-> 📸 **[Agregar aquí capturas de las señales simuladas]**
-
-### 3.3 Emulación con QEMU
-
-Se configuró un entorno de emulación de Raspberry Pi utilizando QEMU con una imagen ARM de Linux. El driver fue compilado utilizando la toolchain cruzada `arm-linux-gnueabihf-gcc` y cargado con `insmod` dentro del entorno emulado.
-
-> 📸 **[Agregar aquí capturas de la emulación funcionando]**
-
-### 3.4 Aplicación de Usuario en Python
-
-Se desarrolló una aplicación en Python 3 que:
-
-- Abre el archivo de dispositivo `/dev/mi_cdd`.
-- Envía el número de señal a leer (0 o 1).
-- Lee datos de la señal seleccionada una vez por segundo.
-- Grafica los valores en tiempo real utilizando `matplotlib`.
-- Resetea el gráfico automáticamente al cambiar de señal.
-
-> 📸 **[Agregar aquí capturas del código Python y gráficos]**
+- Señales externas: generadas por software con actualización cada segundo.
 
 ---
 
-## 4. Resultados
+## Paso 1: Implementación del CDD (cdd_simulated.py)
 
-- El sistema permite seleccionar, leer y visualizar cualquiera de las dos señales simuladas.
-- La aplicación reacciona correctamente ante el cambio de señal, limpiando y ajustando la gráfica.
-- Se comprobó el correcto funcionamiento del CDD en entorno emulado con QEMU.
-- El driver responde de forma estable, manteniendo coherencia en los datos entregados al usuario.
+```
+import os
+import socket
+import threading
+import time
+import random
 
-> 📸 **[Agregar aquí capturas de resultados y gráficas]**
+# Simulación de GPIO para entornos no Raspberry Pi
+class MockGPIO:
+   BCM = "BCM"
+   IN = "IN"
+
+   def setmode(self, mode):
+       print(f"MockGPIO: setmode({mode})")
+
+   def setup(self, pin, mode):
+       print(f"MockGPIO: setup(pin={pin}, mode={mode})")
+
+   def input(self, pin):
+       print(f"MockGPIO: input(pin={pin})")
+       return random.randint(0, 100)  # Devuelve un valor aleatorio entre 0 y 100
+
+   def cleanup(self):
+       print("MockGPIO: cleanup()")
+
+# Usar MockGPIO en lugar de RPi.GPIO
+GPIO = MockGPIO()
+
+HOST = '/tmp/cdd_socket'  # Socket local
+current_signal = 'A'
+clients = []
+
+# Configuración de los pines GPIO
+GPIO.setmode(GPIO.BCM)
+SIGNAL_A_PIN = 17  # Pin GPIO para la señal A
+SIGNAL_B_PIN = 27  # Pin GPIO para la señal B
+GPIO.setup(SIGNAL_A_PIN, GPIO.IN)
+GPIO.setup(SIGNAL_B_PIN, GPIO.IN)
+
+def read_gpio_signal(pin):
+   """
+   Lee el estado del pin GPIO y devuelve un valor simulado.
+   """
+   return GPIO.input(pin)
+
+def generate_signals():
+   """
+   Lee las señales de los pines GPIO y las envía a los clientes conectados.
+   """
+   while True:
+       time.sleep(1)  # Simular un período de 1 segundo
+       for client in clients[:]:
+           conn = client['conn']
+           sig = client['signal']
+           try:
+               # Leer el valor de la señal desde el GPIO
+               if sig == 'A':
+                   value = read_gpio_signal(SIGNAL_A_PIN)
+               else:
+                   value = read_gpio_signal(SIGNAL_B_PIN)
+
+               # Enviar datos al cliente
+               data = f"{sig},{int(time.time())},{value}\n"
+               conn.sendall(data.encode())
+               print(f"Enviando datos a cliente: {data.strip()}")  # Depuración
+           except Exception as e:
+               print(f"Error enviando datos al cliente: {e}")  # Depuración
+               clients.remove(client)
+
+def handle_client(conn):
+   """
+   Maneja la conexión con un cliente.
+   """
+   clients.append({'conn': conn, 'signal': 'A'})  # Cada cliente empieza con señal A
+   print("Cliente conectado")  # Depuración
+   try:
+       while True:
+           data = conn.recv(1024)
+           if not data:
+               break
+           cmd = data.decode().strip().upper()
+           if cmd in ['A', 'B']:
+               for c in clients:
+                   if c['conn'] == conn:
+                       c['signal'] = cmd
+                       print(f"Cliente cambió a señal: {cmd}")  # Depuración
+   except Exception as e:
+       print(f"Error manejando cliente: {e}")  # Depuración
+   finally:
+       # Eliminar cliente de la lista al desconectarse
+       clients[:] = [c for c in clients if c['conn'] != conn]
+       conn.close()
+       print("Cliente desconectado")  # Depuración
+
+def start_server():
+   """
+   Inicia el servidor del CDD simulado.
+   """
+   try:
+       os.unlink(HOST)
+   except FileNotFoundError:
+       pass
+   s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+   s.bind(HOST)
+   s.listen()
+   print("CDD Simulado corriendo...")  # Depuración
+
+   # Iniciar el generador de señales en un hilo separado
+   threading.Thread(target=generate_signals, daemon=True).start()
+
+   while True:
+       conn, _ = s.accept()
+       threading.Thread(target=handle_client, args=(conn,), daemon=True).start()
+
+if __name__ == "__main__":
+   try:
+       start_server()
+   finally:
+       GPIO.cleanup()  # Limpiar configuración de GPIO al salir
+
+ ```
+
+- Se crea un módulo de kernel que registra un dispositivo de caracteres.
+
+
+- Las señales se generan mediante la funcion “generate_signals()” la cual en nuestro caso decidimos optar valores aleatorios tomados de 0 a 100 cada segundo. 
+
+
+### Paso 2: Aplicación en Python (app_user.py)
+
+``` import socket
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+import time
+
+HOST = '/tmp/cdd_socket'  # Ruta del socket UNIX
+
+# Variables globales para almacenar los datos
+timestamps = []
+values = []
+current_signal = "A"  # Señal actual (A o B)
+
+def update_graph(frame):
+   """
+   Función que actualiza el gráfico en tiempo real.
+   """
+   plt.cla()  # Limpiar el gráfico
+   plt.plot(timestamps, values, label=f"Señal {current_signal}")
+   plt.xlabel("Tiempo (s)")
+   plt.ylabel("Valor de la señal")
+   plt.title(f"Gráfico de la señal {current_signal}")
+   plt.legend()
+   plt.grid()
+
+def main():
+   global current_signal, timestamps, values
+
+   try:
+       # Conectar al servidor
+       with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
+           s.connect(HOST)
+           print("Conectado al servidor")
+
+           # Configurar el gráfico
+           fig = plt.figure()
+           ani = FuncAnimation(fig, update_graph, interval=1000)
+
+           while True:
+               # Pedir al usuario que ingrese una señal
+               signal = input("Ingresa la señal a enviar (A o B, o 'exit' para salir): ").strip().upper()
+               if signal == 'EXIT':
+                   print("Cerrando conexión...")
+                   break
+               elif signal not in ['A', 'B']:
+                   print("Señal inválida. Ingresa 'A', 'B' o 'exit'.")
+                   continue
+
+               # Enviar la señal al servidor
+               s.sendall(signal.encode())
+               print(f"Señal enviada al servidor: {signal}")
+               current_signal = signal  # Actualizar la señal actual
+
+               # Recibir datos del servidor
+               data = s.recv(1024).decode().strip()
+               if not data:
+                   print("Conexión cerrada por el servidor.")
+                   break
+
+               # Procesar múltiples líneas de datos
+               for line in data.split("\n"):
+                   if line:
+                       try:
+                           _, timestamp, value = line.split(",")
+                           timestamps.append(int(timestamp))
+                           values.append(int(value))
+                       except ValueError:
+                           print(f"Error procesando línea: {line}")
+
+               # Mostrar el gráfico
+               plt.pause(0.1)
+
+           plt.ioff()  # Desactivar el modo interactivo
+           plt.show()  # Mostrar el gráfico final
+
+   except ConnectionResetError:
+       print("Conexión cerrada por el servidor.")
+   except Exception as e:
+       print(f"Error: {e}")
+
+if __name__ == "__main__":
+   main()
+
+ ```
+
+- Envía un comando para el usuario seleccione la señal que se esta muestreando y graficando (ej: señal "A" o señal "B").
+
+- Lee los datos en tiempo real y los grafica usando matplotlib.
+
+- Al momento de ejecutar el comando "A" o "B" se actualiza la señal muestreada por medio del plot, y se observan los nuevos valores que va tomando, debido a esto el gráfico se reinicia y se ajusta.
+
+### Paso 3: Ejecución del código
+- El código se ejecuta en 2 terminales, en una ejecutamos “python3 cdd_simulated.py” el cual inicia el socket, y luego ejecutamos en otra terminal “python3 app_user.py” para poder ir actualizando las señales.
+
+- Procedemos a adjuntar capturas de como se observan las señales (aclarando que entre una y otra fueron pasando segundos, por eso se ve más avanzada en el tiempo)
+
+![WhatsApp Image 2025-06-15 at 23 58 04](https://github.com/user-attachments/assets/fe8ae82c-0215-46da-bde4-304456f024c5)
+
+<img width="1009" alt="Captura de pantalla 2025-06-16 a la(s) 12 50 10 a  m" src="https://github.com/user-attachments/assets/3687b04b-d470-4013-b2cc-e2c74b4a0dd4" />
+
+
+### Paso 4: Emulación de Raspberry Pi en QEMU
+
+- Se utilizó QEMU para emular una Raspberry Pi con Linux, 
+ La imagen utilizada se descargó de:
+ [raspios_oldstable_lite_armhf (Buster)](https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf/images/)
+
+- El comando que utilizamos para ejecutar QEMU y que comience la simulación fue:
+
+``` 
+qemu-system-arm \
+  -kernel ~/Escritorio/SDC/TP5/qemu-rpi-kernel/kernel-qemu-4.19.50-buster \
+  -dtb ~/Escritorio/SDC/TP5/qemu-rpi-kernel/versatile-pb.dtb \
+  -m 256 \
+  -M versatilepb \
+  -cpu arm1176 \
+  -no-reboot \
+  -append "root=/dev/sda2 panic=1" \
+  -drive file=~/Escritorio/2021-12-02-raspios-buster-armhf-lite.img,format=raw \
+  -net nic -net user,hostfwd=tcp::5023-:22 \
+  -audio none \
+  -nographic
+
+ ```
+
+
+## Paso 5: Conexión SSH a la Raspberry Pi emulada
+- Luego ya ingresando el usuario y la contraseña, la manera más efectiva que encontramos para cargar en código en la raspberry era por medio de localhost, entonces utilizamos:
+``` sh -p 5023 pi@localhost ```
+y ya estando conectados al local host, utilizamos el “wget” para actualizar el código en la raspberry en caso de que le hayamos hecho modificaciones.
+
+```
+wget http://10.0.2.2:8000/cdd_simulated.py
+wget http://10.0.2.2:8000/app_user.py
+
+```
+posterior a esto, ejecutamos el código normalmente con
+
+```
+python3 cdd_simulated.py
+python3 app_user.py
+
+```
+y procedemos a ver la ejecución:
+
+<img width="1009" alt="Captura de pantalla 2025-06-16 a la(s) 12 57 25 a  m" src="https://github.com/user-attachments/assets/527b7d39-fc43-4618-9f18-b91d3dab836f" />
+<img width="1012" alt="Captura de pantalla 2025-06-16 a la(s) 12 57 41 a  m" src="https://github.com/user-attachments/assets/961d83ff-9b5f-4cf4-bf3f-b219cc8ef841" />
+
+
 
 ---
 
-## 5. Conclusiones
+## Conclusiones
 
-- Se logró cumplir con los objetivos propuestos, construyendo un flujo completo de interacción entre kernel y usuario.
-- La emulación en QEMU permitió trabajar de forma segura sin necesidad de hardware físico.
-- El sistema es escalable: el CDD podría extenderse para incluir más señales o agregar operaciones adicionales vía `ioctl`.
-- Se consolidaron conocimientos de programación de bajo nivel, comunicación entre procesos, manejo de dispositivos y visualización de datos.
+- Se logró implementar el código funcional en la raspberry pi, no es posible observar gráficamente las señales en el plot de python puesto que al ser una versión “lite” de Raspios la utilizada, no tiene interfaz gráfica, y el código a pesar de ir variando entre las señales perfectamente, la única forma de observar el plot era por fuera de la raspberry.
+- El sistema al momento de probarlo en el entorno de emulación, nos encontramos ciertas complicaciones, puesto que la versión que habíamos descargado de la raspberry era muy moderna y QEMU no la soportaba, entonces debimos descargar la versión del año 2021 que adjuntamos arriba.
 
----
+- Por medio de matplotlib entonces logramos que la aplicación gráfica sea capaz de representar y cambiar entre las dos señales en tiempo real, cumpliendo así con la consigna.
 
-## 6. Tecnologías y Herramientas Utilizadas
-
-- Lenguaje C (para desarrollo del módulo kernel)
-- Python 3 (para la aplicación de usuario)
-- `matplotlib` (gráficas en tiempo real)
-- QEMU (emulación de Raspberry Pi)
-- Toolchain cruzada ARM (`arm-linux-gnueabihf-gcc`)
-- Make, Bash, Git
 
 ---
 
